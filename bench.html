@@ -1,0 +1,94 @@
+<html>
+<header>
+	<title>Demo</title>
+	<script type="text/javascript">
+		var head = document.getElementsByTagName('head')[0];
+		var js1 = document.createElement("script");
+		var js2 = document.createElement("script");
+		js1.type = "text/javascript";
+		js2.type = "text/javascript";
+		
+	    js1.src = window.location.hostname + "echarts.common.min.js";
+		js2.src = window.location.hostname + "jquery-3.2.1.js";
+		console.log(window.location.hostname)
+		js1.onload = function(){
+            var myChart = echarts.init(document.getElementById('main'));
+            option = {
+		    title: {
+		        text: 'benchmark result',
+		    },
+		    tooltip: {
+		        trigger: 'axis'
+		    },
+		    legend: {
+		        data:['click linux','seL4 coarse grain','seL4 fine grain']
+		    },
+		    toolbox: {
+		        show: false,
+		        feature: {
+		            dataZoom: {
+		                yAxisIndex: 'none'
+		            },
+		            dataView: {readOnly: true},
+		            magicType: {type: ['line', 'bar']},
+		            restore: {},
+		            saveAsImage: {}
+		        }
+		    },
+		    xAxis:  {
+		        type: 'category',
+		        boundaryGap: false,
+		        data: [64,128,256,512,1024,1536,2048],
+		        axisLabel: {
+		            formatter: '{value} bytes'
+		        },
+		        name: 'packet size'
+		    },
+		    yAxis: {
+		        type: 'value',
+		        max: 1000,
+		        min: 0,
+		        axisLabel: {
+		            formatter: '{value} Mbps'
+		        }
+		    },
+		    series: [
+		        {
+		            name:'click linux',
+		            type:'line',
+		            data:[459.9, 631.6, 773.8, 872, 930, 914, 934],
+		            smooth: true
+		        },
+		        {
+		            name:'seL4 coarse grain',
+		            type:'line',
+		            data:[461.7, 631.8, 773.4, 872, 930, 918.3, 934],
+		            smooth: true
+		        },
+		        {
+		            name:'seL4 fine grain',
+		            type:'line',
+		            data:[465, 677, 774.5, 872, 930, 914, 934],
+		          	smooth: true
+		        }
+		    ]
+			};
+
+
+	       myChart.setOption(option)
+
+		}
+		
+		head.appendChild(js1);
+		head.appendChild(js2);
+
+	</script>
+</header>
+<body>
+<div id="main" style="margin-left:10%;width: 80%;height:60%;"></div>
+
+
+
+</body>
+
+</html>
